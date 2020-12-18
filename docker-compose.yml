@@ -1,0 +1,19 @@
+version: "2"
+
+volumes:
+  images:
+  config:
+
+services:
+  app:
+    build: app
+    privileged: true
+    volumes:
+      - images:/images
+      - config:/root/.balena
+  web:
+    build: web
+    ports:
+      - 80:80/tcp
+    volumes:
+      - images:/images:ro

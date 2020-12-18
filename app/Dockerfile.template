@@ -1,0 +1,42 @@
+ARG NODE_VERSION=12.6.0
+
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-node:${NODE_VERSION}-buster-run
+
+ARG BALENA_CLI_VERSION=12.33.0
+
+# set the SHELL option -o pipefail before RUN with a pipe in
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# set debconf to run non-interactively
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN install_packages \
+    apt-transport-https \
+    build-essential \
+    ca-certificates \
+    curl \
+    git \
+    python \
+    wget
+
+# use the official docker-ce installer that only supports up to buster for now
+RUN curl -fsSL https://get.docker.com | bash
+
+# overlay2 requires a docker volume for graph
+VOLUME /var/lib/docker
+
+# install balena cli
+RUN npm install balena-cli@${BALENA_CLI_VERSION} -g --production --unsafe-perm
+
+WORKDIR /usr/src/app
+
+COPY entry.sh .
+
+RUN chmod +x ./entry.sh
+
+CMD [ "./entry.sh" ]
+
+ENV DOWNLOAD_OS_VERSION latest
+ENV PRELOAD_APP_RELEASE current
+ENV CONFIG_NETWORK ethernet
+ENV PRELOAD_APP_PINNED y
