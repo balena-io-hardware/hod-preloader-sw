@@ -6,6 +6,17 @@ make those images available for download via http.
 This avoids each device having to download the release from the cloud
 when connected, and optionally could run without internet access.
 
+## Getting Started
+
+You can one-click-deploy this project to balena using the button below:
+
+[![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/balena-io-playground/balena-preload)
+
+## Manual Deployment
+
+Alternatively, deployment can be carried out by manually creating a [balenaCloud account](https://dashboard.balena-cloud.com) and application,
+flashing a device, downloading the project and pushing it via either Git or the [balena CLI](https://github.com/balena-io/balena-cli).
+
 ## Usage
 
 By setting the various environment variables outlined below you can
