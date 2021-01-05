@@ -12,12 +12,6 @@ target_img="${target_img}-${DOWNLOAD_OS_VERSION/+/-}"
 target_img="${target_img}-${PRELOAD_APP_RELEASE}"
 target_img="${target_img}.img"
 
-# start dockerd in the background and wait for startup
-rm -rf /var/run/docker/*
-rm /var/run/docker.sock || true
-dockerd &
-sleep 5
-
 # balena login with api key
 balena login --token "${CLI_API_KEY}"
 
