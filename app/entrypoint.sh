@@ -4,7 +4,7 @@ set -eu
 
 teardown() {
     sig=$?
-    echo "Caught signal ${sig}!"
+    echo "$0: caught signal ${sig}!"
     pkill dockerd
     exit ${sig}
 }
@@ -21,6 +21,8 @@ then
         --log-driver="${DOCKER_LOG_DRIVER}" \
         --data-root="${DOCKER_DATA_ROOT}" \
         --exec-root="${DOCKER_EXEC_ROOT}" \
+        --dns="${DOCKER_DNS1}" \
+        --dns="${DOCKER_DNS2}" \
         2>&1 | tee "${DOCKER_LOGFILE}" &
 
     while ! grep -q 'API listen on' "${DOCKER_LOGFILE}"

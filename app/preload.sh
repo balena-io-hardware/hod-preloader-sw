@@ -4,9 +4,9 @@ set -eu
 
 teardown() {
     sig=$?
-    echo "Caught signal ${sig}!"
+    echo "$0: caught signal ${sig}!"
     pkill dockerd
-    exit ${sig}
+    tail -f /dev/null
 }
 
 trap "teardown" TERM INT QUIT EXIT
@@ -16,11 +16,11 @@ balena version
 docker version
 
 # keep the filenames somewhat unique
-target_img="/images/${PRELOAD_APP_NAME//[^[:alnum:]_-]/}"
-target_img="${target_img}-${PRELOAD_DEVICE_TYPE//[^[:alnum:]_-]/}"
-target_img="${target_img}-${PRELOAD_OS_VERSION//[^[:alnum:]_-]/}"
-target_img="${target_img}-${PRELOAD_APP_RELEASE//[^[:alnum:]_-]/}"
-target_img="${target_img}.img"
+target_img="/images/${PRELOAD_APP_NAME/\//-/}"
+target_img="${target_img}-${PRELOAD_DEVICE_TYPE}"
+target_img="${target_img}-${PRELOAD_OS_VERSION}"
+target_img="${target_img}-${PRELOAD_APP_RELEASE}"
+target_img="${target_img//[^[:alnum:]_-]}.img"
 
 # balena login with api key
 echo "Logging in..."

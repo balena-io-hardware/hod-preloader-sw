@@ -12,6 +12,13 @@ ARG BALENA_CLI_VERSION=12.44.24
 # install balena-cli via npm
 RUN npm install balena-cli@${BALENA_CLI_VERSION} --production
 
+# balena-preload version can be set at build time
+ARG BALENA_PRELOAD_VERSION=10.4.20
+
+WORKDIR /usr/src/app/node_modules/balena-cli
+
+RUN npm install balena-preload@${BALENA_PRELOAD_VERSION} --production
+
 FROM node:12.22.3-alpine3.14 AS balena-cli
 
 WORKDIR /usr/src/app
@@ -49,6 +56,8 @@ ENV DOCKER_LOG_DRIVER json-file
 ENV DOCKER_DATA_ROOT /var/lib/docker
 ENV DOCKER_EXEC_ROOT /var/run/docker
 ENV DOCKER_LOGFILE /var/run/docker.log
+ENV DOCKER_DNS1 8.8.8.8
+ENV DOCKER_DNS2 8.8.4.4
 
 # docker data root must be a volume or tmpfs
 VOLUME /var/lib/docker
@@ -58,11 +67,11 @@ FROM balena-cli
 WORKDIR /usr/src/app
 
 # install preload script
-COPY preload.sh .
+COPY preload.sh /usr/src/app/
 
-RUN chmod +x ./preload.sh
+RUN chmod +x /usr/src/app/preload.sh
 
-CMD [ "./preload.sh" ]
+CMD [ "/usr/src/app/preload.sh" ]
 
 ENV DOCKERD 1
 ENV PRELOAD_DEVICE_TYPE raspberrypi3
