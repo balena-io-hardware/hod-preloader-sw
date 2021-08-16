@@ -7,17 +7,10 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache build-base ca-certificates curl git python3 wget linux-headers
 
 # balena-cli version can be set at build time
-ARG BALENA_CLI_VERSION=12.44.24
+ARG BALENA_CLI_VERSION=12.46.1
 
 # install balena-cli via npm
 RUN npm install balena-cli@${BALENA_CLI_VERSION} --production
-
-# balena-preload version can be set at build time
-ARG BALENA_PRELOAD_VERSION=10.4.20
-
-WORKDIR /usr/src/app/node_modules/balena-cli
-
-RUN npm install balena-preload@${BALENA_PRELOAD_VERSION} --production
 
 FROM node:12.22.3-alpine3.14 AS balena-cli
 
