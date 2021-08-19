@@ -14,16 +14,24 @@ trap "teardown" TERM INT QUIT EXIT
 # start dockerd if env var is set
 if [ "${DOCKERD:-}" = "1" ]
 then
-    rm -rv "${DOCKER_EXEC_ROOT}" "${DOCKER_PIDFILE}" "${DOCKER_HOST/unix:\/\//}" || true
-    dockerd \
-        --host="${DOCKER_HOST}" \
-        --pidfile="${DOCKER_PIDFILE}" \
-        --log-driver="${DOCKER_LOG_DRIVER}" \
-        --data-root="${DOCKER_DATA_ROOT}" \
-        --exec-root="${DOCKER_EXEC_ROOT}" \
-        --dns="${DOCKER_DNS1}" \
-        --dns="${DOCKER_DNS2}" \
-        2>&1 | tee "${DOCKER_LOGFILE}" &
+    for path in $(echo "${DOCKER_HOST}" | xargs -n1 | sed -nr 's/unix:\/\/(.+)/\1/p') "${DOCKER_EXEC_ROOT}" "${DOCKER_PIDFILE}"
+    do
+        test -e "${path}" || continue
+        rm -rv "${path}" || true
+    done
+
+    dockerd_args=()
+    dockerd_args+=(--host="${DOCKER_HOST}")
+    dockerd_args+=(--pidfile="${DOCKER_PIDFILE}")
+    dockerd_args+=(--log-driver="${DOCKER_LOG_DRIVER}")
+    dockerd_args+=(--data-root="${DOCKER_DATA_ROOT}")
+    dockerd_args+=(--exec-root="${DOCKER_EXEC_ROOT}")
+    dockerd_args+=(--dns="${DOCKER_DNS1}")
+    dockerd_args+=(--dns="${DOCKER_DNS2}")
+    readarray -O 8 -t dockerd_args <<< "${DOCKER_EXTRA_ARGS}"
+
+    echo "Docker daemon args: ${dockerd_args[*]}"
+    dockerd "${dockerd_args[@]}" 2>&1 | tee "${DOCKER_LOGFILE}" &
 
     while ! grep -q 'API listen on' "${DOCKER_LOGFILE}"
     do

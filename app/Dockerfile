@@ -1,4 +1,4 @@
-FROM node:12.22.3-alpine3.14 AS build
+FROM node:12.22.5-alpine3.14 AS build
 
 WORKDIR /usr/src/app
 
@@ -6,11 +6,12 @@ WORKDIR /usr/src/app
 # hadolint ignore=DL3018
 RUN apk add --no-cache build-base ca-certificates curl git python3 wget linux-headers
 
-# balena-cli version can be set at build time
-ARG BALENA_CLI_VERSION=12.46.1
+ENV NODE_ENV production
+
+COPY package.json .
 
 # install balena-cli via npm
-RUN npm install balena-cli@${BALENA_CLI_VERSION} --production
+RUN npm install
 
 FROM node:12.22.3-alpine3.14 AS balena-cli
 
@@ -51,6 +52,7 @@ ENV DOCKER_EXEC_ROOT /var/run/docker
 ENV DOCKER_LOGFILE /var/run/docker.log
 ENV DOCKER_DNS1 8.8.8.8
 ENV DOCKER_DNS2 8.8.4.4
+ENV DOCKER_EXTRA_ARGS ""
 
 # docker data root must be a volume or tmpfs
 VOLUME /var/lib/docker
