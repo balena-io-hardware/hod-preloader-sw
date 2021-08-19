@@ -1,0 +1,4 @@
+type: generic
+upstream:
+  - repo: 'balena-cli'
+    url: 'https://github.com/balena-io/balena-cli'
