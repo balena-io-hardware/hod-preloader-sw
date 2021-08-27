@@ -2,41 +2,23 @@
 
 set -eu
 
-teardown() {
-    sig=$?
-    echo "$0: caught signal ${sig}!"
-    pkill dockerd
-    exit ${sig}
-}
-
-trap "teardown" TERM INT QUIT EXIT
-
 # start dockerd if env var is set
 if [ "${DOCKERD:-}" = "1" ]
 then
-    for path in $(echo "${DOCKER_HOST}" | xargs -n1 | sed -nr 's/unix:\/\/(.+)/\1/p') "${DOCKER_EXEC_ROOT}" "${DOCKER_PIDFILE}"
+    # remove default pid, log, host, and exec root
+    rm -rv /var/run/docker* 2>/dev/null || true
+
+    readarray -t dockerd_args <<< "${DOCKERD_EXTRA_ARGS}"
+
+    echo "Starting Docker daemon with args: ${dockerd_args[*]}"
+
+    # shellcheck disable=SC2068,SC2086
+    dockerd ${dockerd_args[@]} &
+
+    until docker info >/dev/null 2>&1
     do
-        test -e "${path}" || continue
-        rm -rv "${path}" || true
-    done
-
-    dockerd_args=()
-    dockerd_args+=(--host="${DOCKER_HOST}")
-    dockerd_args+=(--pidfile="${DOCKER_PIDFILE}")
-    dockerd_args+=(--log-driver="${DOCKER_LOG_DRIVER}")
-    dockerd_args+=(--data-root="${DOCKER_DATA_ROOT}")
-    dockerd_args+=(--exec-root="${DOCKER_EXEC_ROOT}")
-    dockerd_args+=(--dns="${DOCKER_DNS1}")
-    dockerd_args+=(--dns="${DOCKER_DNS2}")
-    readarray -O 8 -t dockerd_args <<< "${DOCKER_EXTRA_ARGS}"
-
-    echo "Docker daemon args: ${dockerd_args[*]}"
-    dockerd "${dockerd_args[@]}" 2>&1 | tee "${DOCKER_LOGFILE}" &
-
-    while ! grep -q 'API listen on' "${DOCKER_LOGFILE}"
-    do
-        pgrep dockerd >/dev/null || exit 1
-        sleep 2
+      sleep 1
+      pgrep dockerd >/dev/null || exit 1
     done
 fi
 

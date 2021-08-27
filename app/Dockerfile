@@ -1,4 +1,6 @@
-FROM node:12.22.5-alpine3.14 AS build
+# avoid alpine 3.13 or later due to this issue on armv7
+# https://wiki.alpinelinux.org/wiki/Release_Notes_for_Alpine_3.13.0#time64_requirements
+FROM node:12.22.5-alpine3.12 AS build
 
 WORKDIR /usr/src/app
 
@@ -13,7 +15,7 @@ COPY package.json .
 # install balena-cli via npm
 RUN npm install
 
-FROM node:12.22.3-alpine3.14 AS balena-cli
+FROM node:12.22.5-alpine3.12 AS balena-cli
 
 WORKDIR /usr/src/app
 
@@ -44,15 +46,7 @@ ENTRYPOINT [ "/usr/src/app/entrypoint.sh" ]
 CMD [ "help" ]
 
 ENV SSH_AUTH_SOCK /ssh-agent
-ENV DOCKER_HOST unix:///var/run/docker.sock
-ENV DOCKER_PIDFILE /var/run/docker.pid
-ENV DOCKER_LOG_DRIVER json-file
-ENV DOCKER_DATA_ROOT /var/lib/docker
-ENV DOCKER_EXEC_ROOT /var/run/docker
-ENV DOCKER_LOGFILE /var/run/docker.log
-ENV DOCKER_DNS1 8.8.8.8
-ENV DOCKER_DNS2 8.8.4.4
-ENV DOCKER_EXTRA_ARGS ""
+ENV DOCKERD_EXTRA_ARGS ""
 
 # docker data root must be a volume or tmpfs
 VOLUME /var/lib/docker
@@ -71,6 +65,6 @@ CMD [ "/usr/src/app/preload.sh" ]
 ENV DOCKERD 1
 ENV PRELOAD_DEVICE_TYPE raspberrypi3
 ENV PRELOAD_OS_VERSION latest
-ENV PRELOAD_APP_RELEASE current
+ENV PRELOAD_RELEASE current
 ENV PRELOAD_NETWORK ethernet
-ENV PRELOAD_APP_PINNED y
+ENV PRELOAD_PINNED y
