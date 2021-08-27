@@ -8,7 +8,6 @@ volumes:
 services:
   app:
     build: app
-    # restart: no
     privileged: true
     volumes:
       - images:/images
@@ -18,7 +17,7 @@ services:
       - /tmp
       - /var/run
       - /var/log
-      # - /var/lib/docker
+    cpu_shares: 896
   web:
     build: web
     ports:

@@ -36,10 +36,10 @@ the Public Device URL in the Dashboard.
 | Name                  | Default    | Description                                                         |
 | --------------------- | ---------- | ------------------------------------------------------------------- |
 | `CLI_API_KEY`         |            | (required) used to authenticate to a balenaCloud user account       |
-| `PRELOAD_APP_NAME`    |            | (required) name of the application to preload                       |
+| `PRELOAD_FLEET`       |            | (required) name of the application to preload                       |
 | `PRELOAD_DEVICE_TYPE` |            | (required) device type slug to override the application device type |
-| `PRELOAD_APP_RELEASE` | `current`  | commit hash for a specific application release to preload           |
-| `PRELOAD_APP_PINNED`  | `y`        | pin the preloaded device to the release on provision (`y`/`n`)      |
+| `PRELOAD_RELEASE`     | `current`  | commit hash for a specific application release to preload           |
+| `PRELOAD_PINNED`      | `y`        | pin the preloaded device to the release on provision (`y`/`n`)      |
 | `PRELOAD_OS_VERSION`  | `latest`   | balenaOS version, for example `2.32.0` or `2.44.0+rev1`             |
 | `PRELOAD_NETWORK`     | `ethernet` | device network type (`ethernet`/`wifi`)                             |
 | `PRELOAD_WIFI_SSID`   |            | WiFi SSID (network name)                                            |
