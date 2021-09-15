@@ -10,7 +10,7 @@ RUN apk add --no-cache build-base ca-certificates curl git python3 wget linux-he
 
 ENV NODE_ENV production
 
-COPY package.json .
+COPY package.json ./
 
 # install balena-cli via npm
 RUN npm install

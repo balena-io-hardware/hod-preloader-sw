@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -eu
 
@@ -9,12 +9,14 @@ echo "balena CLI:"
 balena version
 docker version
 
+mkdir -p /images
+
 # keep the filenames somewhat unique
-target_img="/images/${PRELOAD_FLEET/\//-/}"
+target_img="${PRELOAD_FLEET/\//-/}"
 target_img="${target_img}-${PRELOAD_DEVICE_TYPE}"
 target_img="${target_img}-${PRELOAD_OS_VERSION}"
 target_img="${target_img}-${PRELOAD_RELEASE}"
-target_img="${target_img//[^[:alnum:]_-]}.img"
+target_img="/images/${target_img//[^[:alnum:]_-]}.img"
 
 # balena login with api key
 echo "Logging in..."
