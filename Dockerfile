@@ -22,8 +22,8 @@ WORKDIR /usr/src/app
 # copy app from build stage
 COPY --from=build /usr/src/app/ ./
 
-# update path to include app bin directory
-ENV PATH $PATH:/usr/src/app/node_modules/.bin/
+# update path to include CLI bin directory
+ENV PATH $PATH:/usr/src/app/node_modules/balena-cli/bin/
 
 # https://github.com/balena-io/balena-cli/blob/master/INSTALL-LINUX.md#additional-dependencies
 # hadolint ignore=DL3018
@@ -42,16 +42,11 @@ RUN CLI_CMDS=$(jq -r '.commands | keys | map(.[0:index(":")]) | unique | join("\
 
 ENTRYPOINT [ "/usr/src/app/entrypoint.sh" ]
 
-# default balena-cli command
-CMD [ "help" ]
-
 ENV SSH_AUTH_SOCK /ssh-agent
 ENV DOCKERD_EXTRA_ARGS ""
 
 # docker data root must be a volume or tmpfs
 VOLUME /var/lib/docker
-
-FROM balena-cli
 
 WORKDIR /usr/src/app
 

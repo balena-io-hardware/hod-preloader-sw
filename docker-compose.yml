@@ -17,7 +17,7 @@ services:
       - /tmp
       - /var/run
       - /var/log
-    cpu_shares: 768
+    cpu_shares: 512
   web:
     build: web
     ports:

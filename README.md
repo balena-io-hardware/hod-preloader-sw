@@ -36,7 +36,7 @@ the Public Device URL in the Dashboard.
 | Name                  | Default    | Description                                                         |
 | --------------------- | ---------- | ------------------------------------------------------------------- |
 | `CLI_API_KEY`         |            | (required) used to authenticate to a balenaCloud user account       |
-| `PRELOAD_FLEET`       |            | (required) name of the application to preload                       |
+| `PRELOAD_FLEET_SLUG`  |            | (required) name of the application to preload                       |
 | `PRELOAD_DEVICE_TYPE` |            | (required) device type slug to override the application device type |
 | `PRELOAD_RELEASE`     | `current`  | commit hash for a specific application release to preload           |
 | `PRELOAD_PINNED`      | `y`        | pin the preloaded device to the release on provision (`y`/`n`)      |
