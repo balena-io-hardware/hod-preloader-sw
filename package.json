@@ -1,7 +1,7 @@
 {
-    "name": "balena-cli-docker",
+    "name": "preloader",
     "private": true,
     "dependencies": {
-        "balena-cli": "12.49.0"
+        "balena-cli": "12.51.1"
     }
 }
