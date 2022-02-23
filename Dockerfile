@@ -55,16 +55,16 @@ FROM balena-cli
 
 WORKDIR /usr/src/app
 
-# install preload script
 COPY preload.sh /usr/src/app/
-
 RUN chmod +x /usr/src/app/preload.sh
+RUN echo "0  3   *   *   *   /usr/src/app/preload.sh > /usr/src/app/cron.log 2>/usr/src/app/cronerr.log" >> /etc/crontabs/root
 
-CMD [ "/usr/src/app/preload.sh" ]
+CMD crond && tail -f /dev/null
 
 ENV DOCKERD 1
 ENV PRELOAD_DEVICE_TYPE raspberrypi3
 ENV PRELOAD_OS_VERSION latest
 ENV PRELOAD_RELEASE current
 ENV PRELOAD_NETWORK ethernet
-ENV PRELOAD_PINNED y
+ENV PRELOAD_PINNED n
+ENV STATIC_DESTINATION /images/image.img

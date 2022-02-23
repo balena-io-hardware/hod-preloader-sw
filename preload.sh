@@ -33,10 +33,17 @@ balena os download "${PRELOAD_DEVICE_TYPE}" \
     --output "${target_img}" \
     --debug
 
+if [ $PRELOAD_OS_VERSION = "latest" ]; then
+    config_os_version=`balena os versions etcher-pro | grep -oE "\S*(\s|\ )" | grep -oE "^(.*)\." | head -c-2`
+else
+    config_os_version=$PRELOAD_OS_VERSION
+fi
+
 # configure the downloaded os
 echo "Configuring OS image with '${PRELOAD_NETWORK}'..."
 balena os configure "${target_img}" \
     --fleet "${PRELOAD_FLEET}" \
+    --version "${config_os_version}" \
     --config-network "${PRELOAD_NETWORK}" \
     --config-wifi-ssid "${PRELOAD_WIFI_SSID:-}" \
     --config-wifi-key "${PRELOAD_WIFI_KEY:-}" \
@@ -64,6 +71,10 @@ n)
     exit 1
     ;;
 esac
+
+if [ $STATIC_DESTINATION ]; then
+    mv $target_img $STATIC_DESTINATION
+fi
 
 echo "Preload complete!"
 echo "Images can be downloaded via file server on port 80."
