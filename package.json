@@ -2,6 +2,6 @@
     "name": "preloader",
     "private": true,
     "dependencies": {
-        "balena-cli": "12.51.1"
+        "balena-cli": "13.4.0"
     }
 }

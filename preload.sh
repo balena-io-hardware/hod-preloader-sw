@@ -18,6 +18,11 @@ target_img="${target_img}-${PRELOAD_OS_VERSION}"
 target_img="${target_img}-${PRELOAD_RELEASE}"
 target_img="/images/${target_img//[^[:alnum:]_-]}.img"
 
+if [ ! -z "${PRELOAD_ORDER_ID}" ]
+then
+    target_img="${PRELOAD_ORDER_ID}.img"
+fi
+
 # balena login with api key
 echo "Logging in..."
 balena login --token "${CLI_API_KEY}"
@@ -38,13 +43,26 @@ fi
 
 # configure the downloaded os
 echo "Configuring OS image with '${PRELOAD_NETWORK}'..."
-balena os configure "${target_img}" \
+if [ ! -z "${PRELOAD_SYS_CONN}" ]
+then
+    echo "System connection file specified."
+    balena os configure "${target_img}" \
+    --fleet "${PRELOAD_FLEET_SLUG}" \
+    --config-network "${PRELOAD_NETWORK}" \
+    --config-wifi-ssid "${PRELOAD_WIFI_SSID:-}" \
+    --config-wifi-key "${PRELOAD_WIFI_KEY:-}" \
+    --device-type "${PRELOAD_DEVICE_TYPE}" \
+    --system-connection "${PRELOAD_SYS_CONN}" \
+    --debug
+else
+    balena os configure "${target_img}" \
     --fleet "${PRELOAD_FLEET_SLUG}" \
     --config-network "${PRELOAD_NETWORK}" \
     --config-wifi-ssid "${PRELOAD_WIFI_SSID:-}" \
     --config-wifi-key "${PRELOAD_WIFI_KEY:-}" \
     --device-type "${PRELOAD_DEVICE_TYPE}" \
     --debug
+fi
 
 # preload the fleet containers and optionally pin the release
 echo "Preloading image with release '${PRELOAD_RELEASE}'..."
@@ -62,11 +80,21 @@ n)
         --commit "${PRELOAD_RELEASE}" \
         --debug
     ;;
+s)
+    echo "Skipping preload..."
+    ;;
 *)
-    echo "PRELOAD_PINNED must be 'y' or 'n'"
+    echo "PRELOAD_PINNED must be 'y', 'n' or 's'"
     exit 1
     ;;
 esac
 
 echo "Preload complete!"
+
+if [ "${PRELOAD_GZIP}" = true ]
+then
+    echo "Gzipping ${target_img}..."
+    gzip ${target_img} 
+fi
+
 echo "Images can be downloaded via file server on port 80."
