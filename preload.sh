@@ -34,7 +34,7 @@ balena os download "${PRELOAD_DEVICE_TYPE}" \
     --debug
 
 if [ $PRELOAD_OS_VERSION = "latest" ]; then
-    config_os_version=`balena os versions etcher-pro | grep -oE "\S*(\s|\ )" | grep -oE "^(.*)\." | head -c-2`
+    config_os_version=`balena os versions etcher-pro | head -n1 | awk -F'[ +]' '{print $1}'`
 else
     config_os_version=$PRELOAD_OS_VERSION
 fi
