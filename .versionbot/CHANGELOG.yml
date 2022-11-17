@@ -1,0 +1,203 @@
+- commits:
+    - subject: Switch from balenaCI to flowzone
+      hash: e94afc155315697d0c1fbc12ac34d9d171875b16
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Heath Raftery (@hraftery) <heath.raftery@balena.io>
+        signed-off-by: Heath Raftery (@hraftery) <heath.raftery@balena.io>
+      author: Heath Raftery
+      nested: []
+    - subject: Optionally validate the downloaded os image with provided md5sum
+      hash: 2d16c9df9fd788c956382132fd2f2bcc39b28ffa
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: "patch: bump balena-cli from 12.48.13 to 12.49.0"
+      hash: bd1888f5a1f40404bf86775a37f68e1330cd6217
+      body: >
+        Bumps [balena-cli](https://github.com/balena-io/balena-cli) from 12.48.13
+        to 12.49.0.
+
+        - [Release notes](https://github.com/balena-io/balena-cli/releases)
+
+        - [Changelog](https://github.com/balena-io/balena-cli/blob/master/CHANGELOG.md)
+
+        - [Commits](https://github.com/balena-io/balena-cli/compare/v12.48.13...v12.49.0)
+
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: balena-cli
+          dependency-type: direct:production
+          update-type: version-update:semver-minor
+        ...
+      footer:
+        Signed-off-by: dependabot[bot] <support@github.com>
+        signed-off-by: dependabot[bot] <support@github.com>
+      author: dependabot[bot]
+      nested: []
+    - subject: "patch: bump balena-cli from 12.48.12 to 12.48.13"
+      hash: 8344ed40309442ceb48aa7b26fe82a0d9210ce7b
+      body: >
+        Bumps [balena-cli](https://github.com/balena-io/balena-cli) from 12.48.12
+        to 12.48.13.
+
+        - [Release notes](https://github.com/balena-io/balena-cli/releases)
+
+        - [Changelog](https://github.com/balena-io/balena-cli/blob/master/CHANGELOG.md)
+
+        - [Commits](https://github.com/balena-io/balena-cli/compare/v12.48.12...v12.48.13)
+
+
+        ---
+
+        updated-dependencies:
+
+        - dependency-name: balena-cli
+          dependency-type: direct:production
+          update-type: version-update:semver-patch
+        ...
+      footer:
+        Signed-off-by: dependabot[bot] <support@github.com>
+        signed-off-by: dependabot[bot] <support@github.com>
+      author: dependabot[bot]
+      nested: []
+    - subject: "patch: bump nginx from 1.21.1-alpine to 1.21.3-alpine in /web"
+      hash: 2f2379f1fbb1684853e07095dc3cd0b8d97d5491
+      body: |
+        Bumps nginx from 1.21.1-alpine to 1.21.3-alpine.
+
+        ---
+        updated-dependencies:
+        - dependency-name: nginx
+          dependency-type: direct:production
+          update-type: version-update:semver-patch
+        ...
+      footer:
+        Signed-off-by: dependabot[bot] <support@github.com>
+        signed-off-by: dependabot[bot] <support@github.com>
+      author: dependabot[bot]
+      nested: []
+    - subject: Remove package-lock and update CLI version
+      hash: bfcf2d0a39ccbeffd06ece02f656e8fd5b0c9501
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Rename app to fleet
+      hash: de0b8b5a7916f8d82f027c93349ed460d0b9360f
+      body: |
+        Also clean up balena-cli image to match upstream playground image.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Fix dependabot path
+      hash: 6deafa26ffc62615a86bdb6c53290c5d55efd6b1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Enable versionbot with balena-cli upstream
+      hash: 5af20a728e3688745252bddacc1d209d9ea3f775
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Enable dependabot and bump balena-cli base image
+      hash: 09f03edb38be7b750eec4a6d8f0127e97276e54d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Update balena-cli to v12.46.1
+      hash: dc418a3b4e2a3ddb8f67932cbc99e86f8a9e433c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Support for custom DNS and balena-preload versions
+      hash: d83f3092b691e87e5e78020da0c35084e7465379
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: Build balena-cli base image separately from preload steps
+      hash: 8b32b6b0fc76a5c861099d6a225b4cb908ba22ee
+      body: |
+        The first two stages of the Dockerfile, up to FROM balena-cli,
+        can be used as an example to build an alpine container with
+        the cli and docker installed.
+
+        Everything following FROM balena-cli is specific to this preload
+        application.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: "dockerfile: use external balena-cli-docker base image"
+      hash: 71017bb45e65815df0914a1170dcba0d2d0aa8d3
+      body: |
+        This will save compile time and keep generic balena-cli
+        and docker install steps in one place.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+    - subject: "balena-preload: initial commit"
+      hash: 3ee877e57109597716a8f46b601eba434cf806c2
+      body: |
+        Generate balenaOS images preloaded with the specified app release and
+        make those images available for download via http.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 0.1.0
+  title: ""
+  date: 2022-11-17T10:48:56.222Z
