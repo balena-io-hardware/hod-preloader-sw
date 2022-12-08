@@ -23,4 +23,7 @@ services:
     ports:
       - 80:80/tcp
     volumes:
-      - images:/images:ro
+      - images:/images:rw
+    environment:
+      - NGINX_USER=balena
+      - NGINX_PASS=thespoonjumpsoverthemoon

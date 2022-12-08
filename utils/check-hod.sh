@@ -11,6 +11,7 @@ OUTPUT=$(curl -X GET \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer ${AUTH_TOKEN}") 
 
+echo $OUTPUT
 FLEETS=$(echo $OUTPUT | jq -c '.d | .[] | .slug' )
 
 echo $FLEETS | tr " " "\n" > fleets.txt 

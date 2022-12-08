@@ -18,7 +18,7 @@ target_img="${target_img}-${PRELOAD_OS_VERSION}"
 target_img="${target_img}-${PRELOAD_RELEASE}"
 target_img="/images/${target_img//[^[:alnum:]_-]}.img"
 
-if [ ! -z "${PRELOAD_ORDER_ID}" ]
+if [ "${PRELOAD_GZIP}" =  ]
 then
     target_img="${PRELOAD_ORDER_ID}.img"
 fi
@@ -26,6 +26,18 @@ fi
 # balena login with api key
 echo "Logging in..."
 balena login --token "${CLI_API_KEY}"
+
+# check for fleet access
+if balena fleet ${PRELOAD_FLEET_SLUG} | grep -q 'BalenaApplicationNotFound'; then
+    echo "Cannot access fleet, exiting..."
+    exit 1;
+fi
+
+# check latest version
+if [ ! -z "${PRELOAD_OS_VERSION:-}" ]
+then
+    target_img="${PRELOAD_ORDER_ID}.img"
+fi
 
 # download the specified os version
 echo "Downloading OS version '${PRELOAD_OS_VERSION}' for device '${PRELOAD_DEVICE_TYPE}'..."
@@ -94,7 +106,7 @@ echo "Preload complete!"
 if [ "${PRELOAD_GZIP}" = true ]
 then
     echo "Gzipping ${target_img}..."
-    gzip ${target_img} 
+    gzip -f ${target_img} 
 fi
 
 echo "Images can be downloaded via file server on port 80."

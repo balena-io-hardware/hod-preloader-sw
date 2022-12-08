@@ -44,3 +44,4 @@ the Public Device URL in the Dashboard.
 | `PRELOAD_NETWORK`     | `ethernet` | device network type (`ethernet`/`wifi`)                             |
 | `PRELOAD_WIFI_SSID`   |            | WiFi SSID (network name)                                            |
 | `PRELOAD_WIFI_KEY`    |            | WiFi key (password)                                                 |
+| `PRELOAD_SYS_CONN`    |            | Specify network config                                              |
