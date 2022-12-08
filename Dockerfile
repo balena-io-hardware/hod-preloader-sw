@@ -27,7 +27,7 @@ ENV PATH $PATH:/usr/src/app/node_modules/balena-cli/bin/
 
 # https://github.com/balena-io/balena-cli/blob/master/INSTALL-LINUX.md#additional-dependencies
 # hadolint ignore=DL3018
-RUN apk add --no-cache avahi bash ca-certificates docker jq openssh
+RUN apk add --no-cache avahi bash ca-certificates docker jq openssh gzip
 
 # fail if binaries are missing or won't run
 RUN balena --version && dockerd --version && docker --version
@@ -52,6 +52,9 @@ WORKDIR /usr/src/app
 
 # install preload script
 COPY preload.sh /usr/src/app/
+
+# copy network config
+COPY system-conns/* /usr/src/app/
 
 RUN chmod +x /usr/src/app/preload.sh
 
