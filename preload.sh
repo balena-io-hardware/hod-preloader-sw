@@ -24,7 +24,7 @@ balena login --token "${CLI_API_KEY}"
 
 # verify the fleet exists and has at least one release
 echo "Verifying '${PRELOAD_FLEET}' has at least one release..."
-balena fleet "${PRELOAD_FLEET}" | grep -q COMMIT
+balena fleet "${PRELOAD_FLEET}" | grep -iq COMMIT
 
 # download the specified os version
 echo "Downloading OS version '${PRELOAD_OS_VERSION}' for device '${PRELOAD_DEVICE_TYPE}'..."

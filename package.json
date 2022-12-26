@@ -2,6 +2,6 @@
     "name": "balena-cli-docker",
     "private": true,
     "dependencies": {
-        "balena-cli": "12.49.0"
+        "balena-cli": "^14.0.0"
     }
 }
